@@ -137,7 +137,7 @@
   var btnEdit = 'Edit on StackBlitz'
   var btnHtml = '<div class="bd-clipboard"><button type="button" class="btn-clipboard"><svg class="bi" width="1em" height="1em" fill="currentColor" role="img" aria-label="Copy"><use xlink:href="#clipboard"/></svg></button></div>'
 
-  document.querySelectorAll('div.highlight')
+  document.querySelectorAll('.bd-masthead .highlight, .bd-content > .highlight')
     .forEach(function (element) {
       element.insertAdjacentHTML('beforebegin', btnHtml)
     })
@@ -165,7 +165,7 @@
 
   var clipboard = new ClipboardJS('.btn-clipboard', {
     target: function (trigger) {
-      return trigger.parentNode.nextElementSibling
+      return trigger.parentNode.parentNode.nextElementSibling
     }
   })
 

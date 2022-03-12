@@ -26,11 +26,9 @@
     line-height: 1.25;
     background-color: rgba(var(--bs-body-color-rgb), .075);
     @include border-radius(.5rem);
-    background-color: rgba(var(--bs-body-color-rgb), .075);
-    @include border-radius(.5rem);
   }
   .btn-clipboard {
-    top: .5rem;
+    margin-top: .4rem;
     background-color: transparent;
   }
 
