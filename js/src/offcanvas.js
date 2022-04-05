@@ -41,6 +41,7 @@ const EVENT_SHOWN = `shown${EVENT_KEY}`
 const EVENT_HIDE = `hide${EVENT_KEY}`
 const EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY}`
 const EVENT_HIDDEN = `hidden${EVENT_KEY}`
+const EVENT_RESIZE = `resize${EVENT_KEY}`
 const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`
 const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY}`
 
@@ -160,6 +161,7 @@ class Offcanvas extends BaseComponent {
   dispose() {
     this._backdrop.dispose()
     this._focustrap.deactivate()
+    EventHandler.off(window, EVENT_RESIZE, this._resizeCallBack)
     super.dispose()
   }
 
@@ -206,13 +208,14 @@ class Offcanvas extends BaseComponent {
       this.hide()
     })
 
-    EventHandler.on(window, 'resize', () => {
+    this._resizeCallBack = () => {
       // Add this check to help js be aligned with css changes on responsive offcanvas
       if (this._isShown && getComputedStyle(this._element).position !== 'fixed') {
-        // this._backdrop.hide()
         this.hide()
       }
-    })
+    }
+
+    EventHandler.on(window, EVENT_RESIZE, this._resizeCallBack)
   }
 
   // Static
