@@ -820,6 +820,9 @@ describe('Modal', () => {
 
       expect(Modal.getInstance(modalEl)).toBeNull()
       expect(EventHandler.off).toHaveBeenCalledTimes(3)
+      expect(EventHandler.off).toHaveBeenCalledWith(window, 'resize.bs.modal', jasmine.any(Function))
+      expect(EventHandler.off).toHaveBeenCalledWith(modalEl.querySelector('.modal-dialog'), '.bs.modal')
+      expect(EventHandler.off).toHaveBeenCalledWith(modalEl, '.bs.modal')
       expect(focustrap.deactivate).toHaveBeenCalled()
     })
   })

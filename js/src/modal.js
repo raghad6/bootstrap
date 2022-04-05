@@ -137,9 +137,8 @@ class Modal extends BaseComponent {
   }
 
   dispose() {
-    for (const htmlElement of [window, this._dialog]) {
-      EventHandler.off(htmlElement, EVENT_KEY)
-    }
+    EventHandler.off(window, EVENT_RESIZE, this._resizeCallBack)
+    EventHandler.off(this._dialog, EVENT_KEY)
 
     this._backdrop.dispose()
     this._focustrap.deactivate()
@@ -227,11 +226,13 @@ class Modal extends BaseComponent {
       this._triggerBackdropTransition()
     })
 
-    EventHandler.on(window, EVENT_RESIZE, () => {
+    this._resizeCallBack = () => {
       if (this._isShown && !this._isTransitioning) {
         this._adjustDialog()
       }
-    })
+    }
+
+    EventHandler.on(window, EVENT_RESIZE, this._resizeCallBack)
   }
 
   _hideModal() {
